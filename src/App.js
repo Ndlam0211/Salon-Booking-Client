@@ -1,20 +1,17 @@
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
 import greenTheme from './theme/greenTheme';
-import Home from './Customer/Home/Home';
-import SalonDetails from './Customer/Salon/Salon Details/SalonDetails';
-import Bookings from './Customer/Booking/Bookings';
-import Notifications from './Customer/Notification/Notifications';
-import Navbar from "./Customer/Navbar/Navbar";
+import SalonDashBoard from "./Seller/SalonDashBoard";
+import { Routes, Route } from 'react-router-dom';
+import CustomerRoutes from './Routes/CustomerRoutes';
 
 function App() {
   return (
     <ThemeProvider theme={greenTheme}>
-      <Navbar/>
-      <Home />
-      {/* <SalonDetails/> */}
-      {/* <Bookings/> */}
-      {/* <Notifications /> */}
+      <Routes>
+        <Route path='/salon-dashboard/*' element={<SalonDashBoard/>} />
+        <Route path='*' element={<CustomerRoutes/>}/>
+      </Routes>
     </ThemeProvider>
   );
 }

@@ -8,9 +8,11 @@ import {
   MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [anchorEl, setAnchoEl] = useState(null);
+  const navigate = useNavigate();
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -24,7 +26,12 @@ const Navbar = () => {
   return (
     <div className="z-50 px-6 flex items-center justify-between py-2">
       <div className="flex items-center gap-10">
-        <h1 className="cursor-pointer font-bold text-2xl">Salon Service</h1>
+        <h1
+          onClick={() => navigate("/")}
+          className="cursor-pointer font-bold text-2xl"
+        >
+          Salon Service
+        </h1>
         <div className="flex items-center gap-5">
           <h1>Home</h1>
         </div>
@@ -33,7 +40,7 @@ const Navbar = () => {
       <div className="flex items-center gap-3 md:gap-6">
         <Button variant="outlined">Become Partner</Button>
 
-        <IconButton>
+        <IconButton onClick={() => navigate("/notifications")}>
           <Badge badgeContent={5}>
             <NotificationsActive color="primary" />
           </Badge>
@@ -60,14 +67,40 @@ const Navbar = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>My Bookings</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/bookings");
+                  handleClose();
+                }}
+              >
+                My Bookings
+              </MenuItem>
               <MenuItem onClick={handleClose}>Logout</MenuItem>
             </Menu>
           </div>
         ) : (
-          <IconButton>
-            <AccountCircle sx={{ fontSize: "45px", color: "green" }} />
-          </IconButton>
+          <div>
+            <IconButton
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              <AccountCircle sx={{ fontSize: "45px", color: "green" }} />
+            </IconButton>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClose}>Login</MenuItem>
+            </Menu>
+          </div>
         )}
       </div>
     </div>
