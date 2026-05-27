@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SalonDetail from "./SalonDetail";
 import { Button, Divider } from "@mui/material";
 import SalonServiceDetails from "./SalonServiceDetails";
+import Review from "../../Review/Review";
 
 const tabs = [
   { name: "All services" },
@@ -30,11 +31,18 @@ const SalonDetails = () => {
         <Divider />
         <div className="">
           {activeTab.name === "Create Review" ? (
-            <div>Create review form</div>
+            <div>
+              <Review />
+            </div>
           ) : activeTab.name === "Reviews" ? (
-            <div>Review list </div>
+            <div>
+              <Review />
+            </div>
           ) : (
-            <div> <SalonServiceDetails /> </div>
+            <div>
+              {" "}
+              <SalonServiceDetails />{" "}
+            </div>
           )}
         </div>
       </div>
