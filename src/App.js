@@ -1,10 +1,12 @@
 import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+import greenTheme from './theme/greenTheme';
 
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <ThemeProvider theme={greenTheme}>
+
+    </ThemeProvider>
   );
 }
 
