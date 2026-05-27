@@ -3,6 +3,7 @@ import SalonDetail from "./SalonDetail";
 import { Button, Divider } from "@mui/material";
 import SalonServiceDetails from "./SalonServiceDetails";
 import Review from "../../Review/Review";
+import CreateReviewForm from "../../Review/CreateReviewForm";
 
 const tabs = [
   { name: "All services" },
@@ -31,8 +32,8 @@ const SalonDetails = () => {
         <Divider />
         <div className="">
           {activeTab.name === "Create Review" ? (
-            <div>
-              <Review />
+            <div className="flex justify-center">
+              <CreateReviewForm />
             </div>
           ) : activeTab.name === "Reviews" ? (
             <div>
