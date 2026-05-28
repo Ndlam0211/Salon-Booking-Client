@@ -2,6 +2,7 @@ import React from 'react'
 import SalonDrawerList from './components/SalonDrawerList'
 import Navbar from '../Admin Salon/Navbar'
 import BookingTable from './Booking/BookingTable'
+import ServiceTable from './Service/ServiceTable'
 
 const SalonDashBoard = () => {
   return (
@@ -12,7 +13,8 @@ const SalonDashBoard = () => {
           <SalonDrawerList/>
         </div>
         <div className="p-10 w-full lg:w-[80%] overflow-y-auto">
-          <BookingTable/>
+          {/* <BookingTable/> */}
+          <ServiceTable/>
         </div>
       </section>
     </div>
