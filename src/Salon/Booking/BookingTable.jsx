@@ -41,31 +41,39 @@ const rows = [
 
 export default function BookingTable() {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+        <h1 className="pb-5 font-bold text-xl">Bookings</h1>
+        <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+                <TableRow>
+                    <StyledTableCell>Services</StyledTableCell>
+                    <StyledTableCell align="right">Time & Date</StyledTableCell>
+                    <StyledTableCell align="right">Price</StyledTableCell>
+                    <StyledTableCell align="right">Customer</StyledTableCell>
+                    <StyledTableCell align="right">Status</StyledTableCell>
+                    <StyledTableCell align="right">Cancel</StyledTableCell>
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {rows.map((row) => (
+                    <StyledTableRow key={row.name}>
+                    <StyledTableCell component="th" scope="row">
+                        {row.name}
+                    </StyledTableCell>
+                        <StyledTableCell align="right">{row.calories}</StyledTableCell>
+                        <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                        <StyledTableCell align="right" className="space-y-2">
+                            <p>Full Name: Code With Lam</p>
+                            <p>nguyendinhlam@gmail.com</p>
+                        </StyledTableCell>
+                        <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                        <StyledTableCell align="right">{row.protein}</StyledTableCell>
+                    </StyledTableRow>
+                ))}
+            </TableBody>
+        </Table>
+        </TableContainer>
+    </>
   );
 }
