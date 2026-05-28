@@ -1,60 +1,70 @@
-import { Dashboard } from '@mui/icons-material';
+import { AccountBalance, AccountBox, Add, Dashboard, Inventory, Logout, NotificationsNone, Receipt, ShoppingBag } from '@mui/icons-material';
 import React from 'react'
+import CategoryIcon from '@mui/icons-material/Category'
 
 const menu = [
   {
     name: "Dashboard",
     path: "/salon-dashboard",
-    icon: <Dashboard className='text-primary-color' />,
-    activeIcon: "",
+    icon: <Dashboard className="text-primary-color" />,
+    activeIcon: <Dashboard className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Bookings",
+    path: "/salon-dashboard/bookings",
+    icon: <ShoppingBag className="text-primary-color" />,
+    activeIcon: <ShoppingBag className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Services",
+    path: "/salon-dashboard/services",
+    icon: <Inventory className="text-primary-color" />,
+    activeIcon: <Inventory className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Add Services",
+    path: "/salon-dashboard/add-services",
+    icon: <Add className="text-primary-color" />,
+    activeIcon: <Add className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Payments",
+    path: "/salon-dashboard/payments",
+    icon: <AccountBalance className="text-primary-color" />,
+    activeIcon: <AccountBalance className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Transactions",
+    path: "/salon-dashboard/transactions",
+    icon: <Receipt className="text-primary-color" />,
+    activeIcon: <Receipt className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Category",
+    path: "/salon-dashboard/categories",
+    icon: <CategoryIcon className="text-primary-color" />,
+    activeIcon: <CategoryIcon className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Notifications",
+    path: "/salon-dashboard/notifications",
+    icon: <NotificationsNone className="text-primary-color" />,
+    activeIcon: <NotificationsNone className="text-secondary-color" />,
+  }
+];
+
+const menu2 = [
+  {
+    name: "Account",
+    path: "/salon-dashboard/account",
+    icon: <AccountBox className="text-primary-color" />,
+    activeIcon: <AccountBox className="text-secondary-color" />,
   },
   {
-    name: "",
-    path: "",
-    icon: "",
-    activeIcon: "",
+    name: "Logout",
+    path: "/",
+    icon: <Logout className="text-primary-color" />,
+    activeIcon: <Logout className="text-secondary-color" />,
   },
 ];
 
