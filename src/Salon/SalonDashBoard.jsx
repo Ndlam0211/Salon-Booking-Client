@@ -3,6 +3,7 @@ import SalonDrawerList from './components/SalonDrawerList'
 import Navbar from '../Admin Salon/Navbar'
 import BookingTable from './Booking/BookingTable'
 import ServiceTable from './Service/ServiceTable'
+import TransactionTable from './Transaction/TransactionTable'
 
 const SalonDashBoard = () => {
   return (
@@ -14,7 +15,8 @@ const SalonDashBoard = () => {
         </div>
         <div className="p-10 w-full lg:w-[80%] overflow-y-auto">
           {/* <BookingTable/> */}
-          <ServiceTable/>
+          {/* <ServiceTable/> */}
+          <TransactionTable/>
         </div>
       </section>
     </div>
