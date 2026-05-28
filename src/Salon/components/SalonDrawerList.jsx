@@ -1,6 +1,7 @@
 import { AccountBalance, AccountBox, Add, Dashboard, Inventory, Logout, NotificationsNone, Receipt, ShoppingBag } from '@mui/icons-material';
 import React from 'react'
 import CategoryIcon from '@mui/icons-material/Category'
+import DrawerList from '../../Admin Salon/DrawerList';
 
 const menu = [
   {
@@ -70,7 +71,7 @@ const menu2 = [
 
 const SalonDrawerList = () => {
   return (
-    <div>SalonDrawerList</div>
+    <DrawerList menu={menu} menu2={menu2}/>
   )
 }
 
