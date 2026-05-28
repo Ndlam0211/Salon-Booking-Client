@@ -69,10 +69,8 @@ const menu2 = [
   },
 ];
 
-const SalonDrawerList = () => {
-  return (
-    <DrawerList menu={menu} menu2={menu2}/>
-  )
+const SalonDrawerList = ({toggleDrawer}) => {
+  return <DrawerList menu={menu} menu2={menu2} toggleDrawer={toggleDrawer}/>;
 }
 
 export default SalonDrawerList
