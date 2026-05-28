@@ -1,7 +1,7 @@
 import './App.css';
 import { ThemeProvider } from '@mui/material/styles';
 import greenTheme from './theme/greenTheme';
-import SalonDashBoard from "./Seller/SalonDashBoard";
+import SalonDashBoard from "./Salon/SalonDashBoard";
 import { Routes, Route } from 'react-router-dom';
 import CustomerRoutes from './Routes/CustomerRoutes';
 
