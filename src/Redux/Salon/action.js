@@ -1,4 +1,5 @@
-import axios from "axios";
+import api from "../../config/api";
+
 import {
   CREATE_SALON_FAILURE,
   CREATE_SALON_REQUEST,
@@ -30,7 +31,7 @@ export const createSalon = (reqData) => async (dispatch) => {
   try {
     const jwt = "";
 
-    const response = await axios.post(API_BASE_URL, reqData.salonDetails, {
+    const response = await api.post(API_BASE_URL, reqData.salonDetails, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -57,7 +58,7 @@ export const updateSalon =
     });
 
     try {
-      const response = await axios.put(`${API_BASE_URL}/${salonId}`, salon, {
+      const response = await api.put(`${API_BASE_URL}/${salonId}`, salon, {
         headers: {
           Authorization: `Bearer ${jwt}`,
         },
@@ -81,7 +82,7 @@ export const fetchSalons = () => async (dispatch) => {
   });
 
   try {
-    const response = await axios.get(API_BASE_URL, {
+    const response = await api.get(API_BASE_URL, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
@@ -105,7 +106,7 @@ export const fetchSalonById = (salonId) => async (dispatch) => {
   });
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/${salonId}`, {
+    const response = await api.get(`${API_BASE_URL}/${salonId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
@@ -129,7 +130,7 @@ export const fetchSalonByOwner = (jwt) => async (dispatch) => {
   });
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/owner`, {
+    const response = await api.get(`${API_BASE_URL}/owner`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -153,7 +154,7 @@ export const searchSalons = (jwt, city) => async (dispatch) => {
   });
 
   try {
-    const response = await axios.get(`${API_BASE_URL}/search`, {
+    const response = await api.get(`${API_BASE_URL}/search`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
