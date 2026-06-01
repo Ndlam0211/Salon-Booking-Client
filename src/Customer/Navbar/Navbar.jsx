@@ -9,11 +9,16 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser, logout } from "../../Redux/Auth/action";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const [anchorEl, setAnchoEl] = useState(null);
-  const navigate = useNavigate();
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { auth } = useSelector((store) => store);
 
   const handleClick = (event) => {
     setAnchoEl(event.currentTarget);
@@ -22,6 +27,15 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchoEl(null);
   };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
+  };
+
+  useEffect(() => {
+    dispatch(fetchUser(localStorage.getItem("jwt")));
+  }, [auth?.jwt]);
 
   return (
     <div className="z-50 px-6 flex items-center justify-between py-2">
@@ -46,9 +60,9 @@ const Navbar = () => {
           </Badge>
         </IconButton>
 
-        {false ? (
+        {auth.user?.id ? (
           <div className="flex gap-1 items-center">
-            <h1 className="text-lg font-semibold">LamNd</h1>
+            <h1 className="text-lg font-semibold">{auth.user.username}</h1>
             <IconButton
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -56,7 +70,9 @@ const Navbar = () => {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              <Avatar sx={{ bgcolor: "green" }}>L</Avatar>
+              <Avatar sx={{ bgcolor: "green" }}>
+                {auth.user.username.charAt(0)}
+              </Avatar>
             </IconButton>
             <Menu
               id="basic-menu"
@@ -75,7 +91,9 @@ const Navbar = () => {
               >
                 My Bookings
               </MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
+              <MenuItem onClick={handleLogout}>
+                Logout
+              </MenuItem>
             </Menu>
           </div>
         ) : (

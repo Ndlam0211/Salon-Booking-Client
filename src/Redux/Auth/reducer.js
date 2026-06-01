@@ -15,6 +15,7 @@ const initialState = {
   user: null,
   loading: false,
   error: null,
+  jwt: null,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -28,7 +29,7 @@ export const authReducer = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        jwt: action.payload?.jwt,
+        jwt: action.payload?.accessToken || null,
         loading: false,
       };
 

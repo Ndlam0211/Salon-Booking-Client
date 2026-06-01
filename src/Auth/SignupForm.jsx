@@ -11,7 +11,7 @@ const SignupForm = () => {
 
     const formik = useFormik({
         initialValues: {
-            fullName: '',
+            username: '',
             email: '',
             password: '',
             role: "CUSTOMER"
@@ -36,11 +36,11 @@ const SignupForm = () => {
                 <TextField
                     variant="outlined"
                     fullWidth
-                    name="fullName"
-                    id="fullName"
-                    label="Full Name"
+                    name="username"
+                    id="username"
+                    label="Username"
                     required
-                    value={formik.values.fullName}
+                    value={formik.values.username}
                     onChange={formik.handleChange}
                 />
                 <TextField

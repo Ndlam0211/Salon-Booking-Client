@@ -10,7 +10,7 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
-            email: '',
+            username: '',
             password: '',
         },
         onSubmit: (values) => {
@@ -33,11 +33,11 @@ const LoginForm = () => {
                 <TextField
                     variant="outlined"
                     fullWidth
-                    name="email"
-                    id="email"
-                    label="Email"
+                    name="username"
+                    id="username"
+                    label="Username"
                     required
-                    value={formik.values.email}
+                    value={formik.values.username}
                     onChange={formik.handleChange}
                 />
                 <TextField

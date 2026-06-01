@@ -23,13 +23,14 @@ export const login = (loginData) => async (dispatch) => {
   try {
     const response = await api.post(`${API_BASE_URL}/login`, loginData.data);
 
-     const user = response.data;
+    console.log("Login response:", response);
+     const user = response.data.data;
 
-     if (user?.jwt) {
-       localStorage.setItem("jwt", user.jwt);
-       if(user?.role === "ROLE_ADMIN") {
+     if (user?.accessToken) {
+       localStorage.setItem("jwt", user.accessToken);
+       if (user?.role === "ADMIN") {
          loginData.navigate("/admin");
-       } else if(user?.role === "ROLE_SALON_OWNER") {
+       } else if (user?.role === "SALON_OWNER") {
          loginData.navigate("/salon-dashboard");
        } else {
          loginData.navigate("/");
@@ -56,10 +57,11 @@ export const register = (registerData) => async (dispatch) => {
   try {
     const response = await api.post(`${API_BASE_URL}/signup`, registerData.data);
 
-    const user = response.data;
+    console.log("Registration response:", response);
+    const user = response.data.data;
 
-    if(user?.jwt) {
-      localStorage.setItem("jwt", user.jwt);
+    if(user?.accessToken) {
+      localStorage.setItem("jwt", user.accessToken);
       registerData.navigate("/");
     }
 
@@ -93,10 +95,11 @@ export const fetchUser = (jwt) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("Fetch user response:", response);
 
     dispatch({
       type: FETCH_USER_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
