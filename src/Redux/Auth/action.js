@@ -54,7 +54,7 @@ export const register = (registerData) => async (dispatch) => {
   });
 
   try {
-    const response = await api.post(`${API_BASE_URL}/signup`, registerData.registerData);
+    const response = await api.post(`${API_BASE_URL}/signup`, registerData.data);
 
     const user = response.data;
 

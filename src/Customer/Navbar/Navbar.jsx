@@ -98,7 +98,22 @@ const Navbar = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleClose}>Login</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/login");
+                  handleClose();
+                }}
+              >
+                Login
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate("/register");
+                  handleClose();
+                }}
+              >
+                Signup
+              </MenuItem>
             </Menu>
           </div>
         )}
