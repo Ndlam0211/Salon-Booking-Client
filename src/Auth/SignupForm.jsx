@@ -20,13 +20,8 @@ const SignupForm = () => {
             console.log("Signup form submitted with values:", values);
             // Dispatch register action here
             dispatch(register({
-                data: {
-                    fullName: values.fullName,
-                    email: values.email,
-                    password: values.password,
-                    role: values.role
-                },
-                navigate: navigate
+               data: values,
+               navigate
             }));
         },
     });

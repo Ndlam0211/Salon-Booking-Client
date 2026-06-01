@@ -17,11 +17,8 @@ const LoginForm = () => {
             console.log("Login form submitted with values:", values);
             // Dispatch login action here
             dispatch(login({
-                data: {
-                    email: values.email,
-                    password: values.password
-                },
-                navigate: navigate
+                data: values,
+                navigate
             }));
         },
     });
