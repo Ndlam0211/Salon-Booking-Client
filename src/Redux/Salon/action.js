@@ -40,7 +40,7 @@ export const createSalon = (reqData) => async (dispatch) => {
     reqData.navigate("/salon-dashboard");
     dispatch({
       type: CREATE_SALON_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -66,7 +66,7 @@ export const updateSalon =
 
       dispatch({
         type: UPDATE_SALON_SUCCESS,
-        payload: response.data,
+        payload: response.data.data,
       });
     } catch (error) {
       dispatch({
@@ -88,9 +88,11 @@ export const fetchSalons = () => async (dispatch) => {
       },
     });
 
+    console.log("Fetched salons:", response); // Debugging log
+
     dispatch({
       type: FETCH_SALON_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -114,7 +116,7 @@ export const fetchSalonById = (salonId) => async (dispatch) => {
 
     dispatch({
       type: FETCH_SALON_BY_ID_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -138,7 +140,7 @@ export const fetchSalonByOwner = (jwt) => async (dispatch) => {
 
     dispatch({
       type: FETCH_SALON_BY_OWNER_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -165,7 +167,7 @@ export const searchSalons = (jwt, city) => async (dispatch) => {
 
     dispatch({
       type: SEARCH_SALON_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
