@@ -34,7 +34,7 @@ export const createCategory = (categoryData, jwt) => async (dispatch) => {
 
     dispatch({
       type: CREATE_CATEGORY_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -58,7 +58,7 @@ export const getAllCategories = () => async (dispatch) => {
 
     dispatch({
       type: GET_ALL_CATEGORIES_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -82,7 +82,7 @@ export const getCategoryById = (categoryId) => async (dispatch) => {
 
     dispatch({
       type: GET_CATEGORY_BY_ID_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({
@@ -103,10 +103,11 @@ export const getCategoriesBySalon = ({jwt, salonId}) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("Fetched categories:", response.data);
 
     dispatch({
       type: GET_CATEGORIES_BY_SALON_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     dispatch({

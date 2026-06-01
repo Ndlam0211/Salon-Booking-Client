@@ -1,33 +1,55 @@
-import React, { useState } from 'react'
-import CategoryCard from './CategoryCard'
-import ServiceCard from './ServiceCard'
-import { Button, Divider } from '@mui/material'
-import { RemoveShoppingCart, ShoppingCart } from '@mui/icons-material'
-import SelectedServiceList from './SelectedServiceList'
+import React, { useState } from "react";
+import CategoryCard from "./CategoryCard";
+import ServiceCard from "./ServiceCard";
+import { Button, Divider } from "@mui/material";
+import { RemoveShoppingCart, ShoppingCart } from "@mui/icons-material";
+import SelectedServiceList from "./SelectedServiceList";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchServicesBySalon } from "../../../Redux/Salon Services/action";
+import { getCategoriesBySalon } from "../../../Redux/Category/action";
 
 const SalonServiceDetails = () => {
-    const [selectedCategory, setSelectedCategory] = useState(0)
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { category, service } = useSelector((store) => store);
 
-    const handleCategoryClick = (category) => () => {
-        setSelectedCategory(category)
+  const handleCategoryClick = (category) => () => {
+    setSelectedCategory(category);
+  };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getCategoriesBySalon({
+        jwt: localStorage.getItem("jwt"),
+        salonId: id,
+      }));
+
+      dispatch(fetchServicesBySalon({
+        salonId: id,
+        jwt: localStorage.getItem("jwt"),
+        categoryId: selectedCategory,
+      }));
     }
-
+  }, [id, selectedCategory]);
   return (
     <div className="lg:flex gap-5 h-[90vh] mt-10">
       <section className="space-y-5 border-r lg:w-[25%] pr-5">
-        {[1, 1, 1, 1].map((item, index) => (
+        {category.categories?.map((item, index) => (
           <CategoryCard
-            handleCategoryClick={handleCategoryClick(index)}
+            handleCategoryClick={handleCategoryClick(item.id)}
             selectedCategory={selectedCategory}
-            item={index}
+            item={item}
           />
         ))}
       </section>
 
       <section className="space-y-2 lg:w-[50%] px-5 lg:px-20 overflow-y-auto">
-        {[1, 1, 1, 1].map((item) => (
+        {service.services?.map((item) => (
           <div className="space-y-4">
-            <ServiceCard />
+            <ServiceCard item={item} />
             <Divider />
           </div>
         ))}
@@ -42,7 +64,7 @@ const SalonServiceDetails = () => {
                 <h1 className="font-thin text-sm">Selected Services</h1>
               </div>
               <SelectedServiceList />
-              <Button sx={{py:".7rem"}} fullWidth variant="contained">
+              <Button sx={{ py: ".7rem" }} fullWidth variant="contained">
                 Book Now
               </Button>
             </div>
@@ -56,6 +78,6 @@ const SalonServiceDetails = () => {
       </section>
     </div>
   );
-}
+};
 
-export default SalonServiceDetails
+export default SalonServiceDetails;

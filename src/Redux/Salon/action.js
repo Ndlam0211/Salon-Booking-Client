@@ -114,6 +114,8 @@ export const fetchSalonById = (salonId) => async (dispatch) => {
       },
     });
 
+    console.log("Fetched salon by ID:", response.data.data); // Debugging log
+
     dispatch({
       type: FETCH_SALON_BY_ID_SUCCESS,
       payload: response.data.data,

@@ -5,6 +5,7 @@ import SalonServiceDetails from "./SalonServiceDetails";
 import Review from "../../Review/Review";
 import CreateReviewForm from "../../Review/CreateReviewForm";
 
+
 const tabs = [
   { name: "All services" },
   { name: "Reviews" },
@@ -14,7 +15,7 @@ const tabs = [
 const SalonDetails = () => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const handleActiveTab = (tab) => () => setActiveTab(tab);
-
+  
   return (
     <div className="px-5 lg:px-20">
       <SalonDetail />

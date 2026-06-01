@@ -37,7 +37,7 @@ export const createService =
 
       dispatch({
         type: CREATE_SERVICE_SUCCESS,
-        payload: data,
+        payload: data.data,
       });
     } catch (error) {
       dispatch({
@@ -67,7 +67,7 @@ export const updateService =
 
       dispatch({
         type: UPDATE_SERVICE_SUCCESS,
-        payload: data,
+        payload: data.data,
       });
     } catch (error) {
       dispatch({
@@ -91,10 +91,11 @@ export const fetchServicesBySalon =
         },
         params: { categoryId },
       });
+      console.log("Fetched services:", data);
 
       dispatch({
         type: FETCH_SERVICES_BY_SALON_SUCCESS,
-        payload: data,
+        payload: data.data,
       });
     } catch (error) {
       dispatch({
@@ -120,7 +121,7 @@ export const fetchServiceById =
 
       dispatch({
         type: FETCH_SERVICE_BY_ID_SUCCESS,
-        payload: data,
+        payload: data.data,
       });
     } catch (error) {
       dispatch({
