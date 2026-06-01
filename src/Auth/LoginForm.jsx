@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, TextField, Typography, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { login } from '../Redux/Auth/actions';
+import { login } from '../Redux/Auth/action';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
