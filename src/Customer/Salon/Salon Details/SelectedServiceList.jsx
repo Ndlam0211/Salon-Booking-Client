@@ -2,14 +2,14 @@ import { Close } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React from "react";
 
-const SelectedServiceList = () => {
+const SelectedServiceList = ({ onRemove, selectedServices }) => {
   return (
     <div className="my-5 space-y-2">
-      {[1, 1, 1, 1].map((item) => (
+      {selectedServices.map((item) => (
         <div className="py-2 px-4 rounded-md bg-slate-100 flex justify-between items-center">
           <h1 className="font-thin">Man Beard</h1>
           <p>99đ</p>
-          <IconButton>
+          <IconButton onClick={() => onRemove(item.id)}>
             <Close />
           </IconButton>
         </div>

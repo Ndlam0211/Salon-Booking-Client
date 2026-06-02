@@ -11,6 +11,10 @@ import { fetchServicesBySalon } from "../../../Redux/Salon Services/action";
 
 const SalonServiceDetails = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [bookingData, setBookingData] = useState({
+    services: [],
+    time: null
+  });
   const { id } = useParams();
   const dispatch = useDispatch();
   const { category, service } = useSelector((store) => store);
@@ -18,6 +22,19 @@ const SalonServiceDetails = () => {
   const handleCategoryClick = (category) => () => {
     setSelectedCategory(category);
   };
+
+  const handleSelectService = (service) => {
+    setBookingData(prevState => (
+      {...prevState, services:[...prevState.services, service]}
+    ))
+  }
+
+  const handleRemoveService = (id) => {
+    setBookingData((prevState) => ({
+      ...prevState,
+      services: [...prevState.services.filter((service) => service.id !== id)],
+    }));
+  }
 
   useEffect(() => {
     if (id) {
@@ -43,7 +60,7 @@ const SalonServiceDetails = () => {
       <section className="space-y-2 lg:w-[50%] px-5 lg:px-20 overflow-y-auto">
         {service.services?.map((item) => (
           <div className="space-y-4">
-            <ServiceCard item={item} />
+            <ServiceCard onSelect={handleSelectService} item={item} />
             <Divider />
           </div>
         ))}
@@ -57,7 +74,7 @@ const SalonServiceDetails = () => {
                 <ShoppingCart sx={{ fontSize: "30px", color: "green" }} />
                 <h1 className="font-thin text-sm">Selected Services</h1>
               </div>
-              <SelectedServiceList />
+              <SelectedServiceList selectedServices={bookingData.services} onRemove={handleRemoveService} />
               <Button sx={{ py: ".7rem" }} fullWidth variant="contained">
                 Book Now
               </Button>

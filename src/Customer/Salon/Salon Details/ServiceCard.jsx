@@ -2,7 +2,7 @@ import { FiberManualRecord } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import React from "react";
 
-const ServiceCard = ({ item }) => {
+const ServiceCard = ({ item, onSelect }) => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between gap-5">
@@ -22,7 +22,7 @@ const ServiceCard = ({ item }) => {
             src={item.image || "https://res.cloudinary.com/dxoqwusir/image/upload/v1732883653/barber-3173419_1280_juevxz.jpg"}
             alt={item.name}
           />
-          <Button fullWidth variant="outlined">
+          <Button onClick={() => onSelect(item)} fullWidth variant="outlined">
             Add
           </Button>
         </div>
