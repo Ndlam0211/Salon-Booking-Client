@@ -43,12 +43,12 @@ export const createBooking = ({jwt, salonId, bookingData}) => async (dispatch) =
       },
     });
 
-    window.location.href = data.paymentLinkUrl;
     console.log("Created booking:", data);
+    window.location.href = data.data.paymentLinkUrl;
 
     dispatch({
       type: CREATE_BOOKING_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
@@ -72,7 +72,7 @@ export const fetchCustomerBookings = (jwt) => async (dispatch) => {
 
     dispatch({
       type: FETCH_CUSTOMER_BOOKINGS_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
@@ -96,7 +96,7 @@ export const fetchSalonBookings = (jwt) => async (dispatch) => {
 
     dispatch({
       type: FETCH_SALON_BOOKINGS_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
@@ -120,7 +120,7 @@ export const fetchBookingById = (bookingId) => async (dispatch) => {
 
     dispatch({
       type: FETCH_BOOKING_BY_ID_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
@@ -153,7 +153,7 @@ export const updateBookingStatus =
 
       dispatch({
         type: UPDATE_BOOKING_STATUS_SUCCESS,
-        payload: data,
+        payload: data.data,
       });
     } catch (error) {
       dispatch({
@@ -177,7 +177,7 @@ export const getSalonReport = (jwt) => async (dispatch) => {
 
     dispatch({
       type: GET_SALON_REPORT_SUCCESS,
-      payload: data,
+      payload: data.data,
     });
   } catch (error) {
     dispatch({
@@ -208,7 +208,7 @@ export const fetchBookedSlots =
 
       dispatch({
         type: FETCH_BOOKED_SLOTS_SUCCESS,
-        payload: data,
+        payload: data.data,
       });
     } catch (error) {
       dispatch({
