@@ -28,6 +28,7 @@ export const fetchReviews = ({ salonId, jwt }) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("Fetched Reviews:", response.data);
 
     dispatch({
       type: FETCH_REVIEWS_SUCCESS,
@@ -52,6 +53,7 @@ export const createReview = ({salonId, reviewData, jwt}) => async (dispatch) => 
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("Created Review:", response.data);
 
     dispatch({
       type: CREATE_REVIEW_SUCCESS,

@@ -3,14 +3,24 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchSalonById } from "../../../Redux/Salon/action";
+import { getCategoriesBySalon } from "../../../Redux/Category/action";
 
 const SalonDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const {salon} = useSelector(store => store)
+  const { salon } = useSelector((store) => store);
 
   useEffect(() => {
-    if (id) dispatch(fetchSalonById(id));
+    if (id) {
+      dispatch(fetchSalonById(id));
+
+      dispatch(
+        getCategoriesBySalon({
+          jwt: localStorage.getItem("jwt"),
+          salonId: id,
+        }),
+      );
+    }
   }, [id]);
   return (
     <div className="space-y-5 mb-20">
@@ -18,21 +28,30 @@ const SalonDetail = () => {
         <div className="col-span-2">
           <img
             className="w-full rounded-md h-[15rem] object-cover"
-            src={salon.salon?.images[0] || "https://res.cloudinary.com/dxoqwusir/image/upload/v1732934203/barber-5497152_1280_zgcao8.jpg"}
+            src={
+              salon.salon?.images[0] ||
+              "https://res.cloudinary.com/dxoqwusir/image/upload/v1732934203/barber-5497152_1280_zgcao8.jpg"
+            }
             alt=""
           />
         </div>
         <div className="col-span-1">
           <img
             className="w-full rounded-md h-[15rem] object-cover"
-            src={salon.salon?.images[1] || "https://res.cloudinary.com/dxoqwusir/image/upload/v1732934203/barber-5497152_1280_zgcao8.jpg"}
+            src={
+              salon.salon?.images[1] ||
+              "https://res.cloudinary.com/dxoqwusir/image/upload/v1732934203/barber-5497152_1280_zgcao8.jpg"
+            }
             alt=""
           />
         </div>
         <div className="col-span-1">
           <img
             className="w-full rounded-md h-[15rem] object-cover"
-            src={salon.salon?.images[2] || "https://res.cloudinary.com/dxoqwusir/image/upload/v1732934217/beauty-salon-4043096_1280_itrjdr.jpg"}
+            src={
+              salon.salon?.images[2] ||
+              "https://res.cloudinary.com/dxoqwusir/image/upload/v1732934217/beauty-salon-4043096_1280_itrjdr.jpg"
+            }
             alt=""
           />
         </div>
@@ -42,7 +61,8 @@ const SalonDetail = () => {
         <h1 className="font-bold text-3xl">{salon.salon?.name}</h1>
         <p>{salon.salon?.address}</p>
         <p>
-          <strong>Timing:</strong> {salon.salon?.openingTime} To {salon.salon?.closingTime}
+          <strong>Timing:</strong> {salon.salon?.openingTime} To{" "}
+          {salon.salon?.closingTime}
         </p>
       </section>
     </div>

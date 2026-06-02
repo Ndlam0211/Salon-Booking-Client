@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchServicesBySalon } from "../../../Redux/Salon Services/action";
-import { getCategoriesBySalon } from "../../../Redux/Category/action";
 
 const SalonServiceDetails = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -22,11 +21,6 @@ const SalonServiceDetails = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(getCategoriesBySalon({
-        jwt: localStorage.getItem("jwt"),
-        salonId: id,
-      }));
-
       dispatch(fetchServicesBySalon({
         salonId: id,
         jwt: localStorage.getItem("jwt"),
