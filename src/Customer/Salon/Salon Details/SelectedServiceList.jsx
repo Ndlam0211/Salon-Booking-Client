@@ -7,8 +7,8 @@ const SelectedServiceList = ({ onRemove, selectedServices }) => {
     <div className="my-5 space-y-2">
       {selectedServices.map((item) => (
         <div className="py-2 px-4 rounded-md bg-slate-100 flex justify-between items-center">
-          <h1 className="font-thin">Man Beard</h1>
-          <p>99đ</p>
+          <h1 className="font-thin">{item.name}</h1>
+          <p>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.price)}</p>
           <IconButton onClick={() => onRemove(item.id)}>
             <Close />
           </IconButton>

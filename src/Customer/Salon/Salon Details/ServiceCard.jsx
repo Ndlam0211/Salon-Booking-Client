@@ -10,7 +10,12 @@ const ServiceCard = ({ item, onSelect }) => {
           <h1 className="text-2xl font-semibold">{item.name}</h1>
           <p className="text-gray-500 text-sm">{item.description}</p>
           <div className="flex items-center gap-3">
-            <p>{item.price}đ</p>
+            <p>
+              {new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              }).format(item.price)}
+            </p>
             <FiberManualRecord sx={{ fontSize: "10px", color: "gray" }} />
             <p>{item.duration} mins</p>
           </div>
@@ -19,7 +24,10 @@ const ServiceCard = ({ item, onSelect }) => {
         <div className="space-y-3">
           <img
             className="w-32 h-32 object-cover rounded-md"
-            src={item.image || "https://res.cloudinary.com/dxoqwusir/image/upload/v1732883653/barber-3173419_1280_juevxz.jpg"}
+            src={
+              item.image ||
+              "https://res.cloudinary.com/dxoqwusir/image/upload/v1732883653/barber-3173419_1280_juevxz.jpg"
+            }
             alt={item.name}
           />
           <Button onClick={() => onSelect(item)} fullWidth variant="outlined">
