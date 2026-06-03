@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BookingCard from './BookingCard'
+import { useDispatch } from 'react-redux'
+import { fetchCustomerBookings } from '../../Redux/Booking/action'
 
 const Bookings = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCustomerBookings(localStorage.getItem("jwt")))
+  },[])
   return (
     <div className='px-5 md:flex flex-col items-center mt-10 min-h-screen'>
         <div className="">

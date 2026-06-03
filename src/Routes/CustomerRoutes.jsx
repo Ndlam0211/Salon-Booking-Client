@@ -6,6 +6,7 @@ import Notifications from "../Customer/Notification/Notifications";
 import Navbar from "../Customer/Navbar/Navbar";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
+import PaymentSuccess from "../Customer/Payment/PaymentSuccess";
 
 const CustomerRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const CustomerRoutes = () => {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/bookings" element={<Bookings />} />
         <Route path="/salon/:id" element={<SalonDetails />} />
+        <Route path="/payment-success/:id" element={<PaymentSuccess />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

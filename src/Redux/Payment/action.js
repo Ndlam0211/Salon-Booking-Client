@@ -8,26 +8,26 @@ import {
 
 const API_BASE_URL = "/api/v1/payments";
 
-export const proceedPayment = ({ paymentId, paymentLinkId, jwt }) => async (dispatch) => {
+export const proceedPayment = ({ paymentId, paymentRequest, jwt }) => async (dispatch) => {
   dispatch({
     type: PROCEED_PAYMENT_REQUEST,
   });
 
   try {
-    const response = await api.patch(`${API_BASE_URL}/proceed`, null, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
+    const response = await api.patch(
+      `${API_BASE_URL}/${paymentId}/proceed`,
+      paymentRequest,
+      {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
       },
-      params: {
-        paymentId,
-        paymentLinkId,
-      },
-    });
+    );
     console.log("Payment response:", response.data);
 
     dispatch({
       type: PROCEED_PAYMENT_SUCCESS,
-      payload: response.data,
+      payload: response.data.data,
     });
   } catch (error) {
     console.error("Payment processing error:", error);
