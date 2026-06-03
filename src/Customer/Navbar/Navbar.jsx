@@ -91,6 +91,10 @@ const Navbar = () => {
               >
                 My Bookings
               </MenuItem>
+              {auth.user?.role === "SALON_OWNER" && <MenuItem onClick={() => {
+                navigate("/salon-dashboard")
+                handleClose()
+              }}>Dashboard</MenuItem>}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>
