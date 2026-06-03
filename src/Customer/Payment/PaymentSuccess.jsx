@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { proceedPayment } from "../../../Redux/payment/action";
+import { proceedPayment } from "../../Redux/Payment/action";
 
 const PaymentSuccess = () => {
     const navigate = useNavigate()

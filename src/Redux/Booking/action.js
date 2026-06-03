@@ -70,6 +70,8 @@ export const fetchCustomerBookings = (jwt) => async (dispatch) => {
       },
     });
 
+    console.log("fetch bookings: ", data)
+
     dispatch({
       type: FETCH_CUSTOMER_BOOKINGS_SUCCESS,
       payload: data.data,
