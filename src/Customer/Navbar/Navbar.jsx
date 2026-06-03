@@ -18,7 +18,7 @@ const Navbar = () => {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { auth } = useSelector((store) => store);
+  const { auth, notification } = useSelector((store) => store);
 
   const handleClick = (event) => {
     setAnchoEl(event.currentTarget);
@@ -55,7 +55,7 @@ const Navbar = () => {
         <Button variant="outlined">Become Partner</Button>
 
         <IconButton onClick={() => navigate("/notifications")}>
-          <Badge badgeContent={5}>
+          <Badge badgeContent={notification.unreadCount}>
             <NotificationsActive color="primary" />
           </Badge>
         </IconButton>
@@ -91,9 +91,7 @@ const Navbar = () => {
               >
                 My Bookings
               </MenuItem>
-              <MenuItem onClick={handleLogout}>
-                Logout
-              </MenuItem>
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>
         ) : (

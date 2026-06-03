@@ -54,6 +54,8 @@ export const fetchNotificationsByUser = ({ userId, jwt }) => async (dispatch) =>
       },
     });
 
+    console.log("fetch notifications by user: ", response)
+
     dispatch({
       type: FETCH_NOTIFICATIONS_BY_USER_SUCCESS,
       payload: response.data,
