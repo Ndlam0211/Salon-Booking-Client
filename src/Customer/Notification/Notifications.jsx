@@ -9,7 +9,7 @@ const Notifications = () => {
 
   useEffect(() => {
     dispatch(fetchNotificationsByUser({
-      userId: auth.user.id,
+      userId: auth.user?.id,
       jwt: localStorage.getItem("jwt")
     }));
   },[])
