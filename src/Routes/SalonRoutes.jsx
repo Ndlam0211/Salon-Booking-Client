@@ -8,6 +8,7 @@ import CreateServiceForm from "../Salon/Service/CreateServiceForm";
 import HomePage from "../Salon/Home/HomePage";
 import Notifications from "../Customer/Notification/Notifications";
 import Payment from "../Salon/Payment/Payment";
+import Profile from '../Salon/Profile/Profile';
 
 const SalonRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const SalonRoutes = () => {
       <Route path="/transactions" element={<TransactionTable />} />
       <Route path="/notifications" element={<Notifications />} />
       <Route path="/payments" element={<Payment />} />
+      <Route path="/account" element={<Profile />} />
     </Routes>
   );
 }
