@@ -20,13 +20,13 @@ import {
 
 const API_BASE_URL = "/api/v1/categories";
 
-export const createCategory = (categoryData, jwt) => async (dispatch) => {
+export const createCategory = ({categoryData, jwt}) => async (dispatch) => {
   dispatch({
     type: CREATE_CATEGORY_REQUEST,
   });
 
   try {
-    const response = await api.post(API_BASE_URL, categoryData, {
+    const response = await api.post(`${API_BASE_URL}/salon-owner`, categoryData, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
@@ -37,6 +37,7 @@ export const createCategory = (categoryData, jwt) => async (dispatch) => {
       payload: response.data.data,
     });
   } catch (error) {
+    console.log("error create category: ", error)
     dispatch({
       type: CREATE_CATEGORY_FAILURE,
       payload: error.message,
@@ -103,7 +104,7 @@ export const getCategoriesBySalon = ({jwt, salonId}) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    console.log("Fetched categories:", response.data);
+    console.log("Fetched categories by salon:", response.data);
 
     dispatch({
       type: GET_CATEGORIES_BY_SALON_SUCCESS,

@@ -6,6 +6,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getCategoriesBySalon } from "../../Redux/Category/action";
+import IconButton from "@mui/material/IconButton";
+import { Edit } from "@mui/icons-material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,6 +45,17 @@ const rows = [
 ];
 
 export default function CategoryTable() {
+  const dispatch = useDispatch()
+  const {salon, category} = useSelector(store => store)
+
+  useEffect(() => {
+    if(salon.salon) {
+      dispatch(getCategoriesBySalon({
+        jwt: localStorage.getItem("jwt"),
+        salonId: salon.salon?.id
+      }));
+    }
+  },[salon.salon])
   return (
     <>
       <TableContainer component={Paper}>
@@ -47,26 +63,23 @@ export default function CategoryTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Image</StyledTableCell>
-              <StyledTableCell align="right">Title</StyledTableCell>
+              <StyledTableCell align="right">Category Name</StyledTableCell>
               <StyledTableCell align="right">Update</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
+            {category.categories.map((item) => (
+              <StyledTableRow key={item.name}>
                 <StyledTableCell component="th" scope="row">
                   <div className="flex gap-1 flex-wrap">
-                    <img
-                      className="w-20 rounded-md"
-                      src="https://media.istockphoto.com/id/623477902/vi/anh/ng%C6%B0%E1%BB%9Di-%C4%91%C3%A0n-%C3%B4ng-%C4%91%C6%B0%E1%BB%A3c-c%E1%BA%AFt-t%C3%B3c-t%E1%BA%A1i-th%E1%BB%A3-c%E1%BA%AFt-t%C3%B3c-c%E1%BB%A7a-m%C3%ACnh.jpg?s=612x612&w=0&k=20&c=PfR5OIe-zfEUUGVTVAQm_mFSF5gP3KmsQegqae3Pehc="
-                      alt=""
-                    />
+                    <img className="w-20 rounded-md" src={item.image} alt="" />
                   </div>
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.calories}</StyledTableCell>
+                <StyledTableCell align="right">{item.name}</StyledTableCell>
                 <StyledTableCell align="right" className="space-y-2">
-                  <p>Full Name: Code With Lam</p>
-                  <p>nguyendinhlam@gmail.com</p>
+                  <IconButton>
+                    <Edit/>
+                  </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

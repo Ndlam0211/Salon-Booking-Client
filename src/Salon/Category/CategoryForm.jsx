@@ -1,33 +1,57 @@
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import React from "react";
+import React, { useState } from "react";
 import { AddPhotoAlternate, Close } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { uploadToCloudinary } from "../../util/uploadToCloudinary";
+import { createCategory } from "../../Redux/Category/action";
 
 const CategoryForm = () => {
+  const dispatch = useDispatch();
+  const [uploadImage, setUploadImage] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       name: "",
-      image: ""
+      image: "",
     },
-    onSubmit: () => {
+    onSubmit: (values) => {
       console.log("submit: ", formik.values);
+      dispatch(
+        createCategory({
+          categoryData: values,
+          jwt: localStorage.getItem("jwt"),
+        },
+      ),
+      );
     },
   });
 
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+
+    setUploadImage(true);
+    const image = await uploadToCloudinary(file);
+    formik.setFieldValue("image", image);
+    setUploadImage(false);
+  };
   return (
     <div className="flex justify-center items-center">
-      <form onSubmit={formik.handleSubmit} className="space-y-4 w-full lg:w-1/2">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="space-y-4 w-full lg:w-1/2"
+      >
         <Grid container spacing={2}>
           <Grid size={{ xs: 12 }} className="w-24 h-24">
-            {false ? (
+            {formik.values.image ? (
               <div className="relative border">
                 <img
                   className="w-24 h-24 object-cover"
-                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2Fsb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+                  src={formik.values.image}
                   alt="Category"
                 />
                 <IconButton
@@ -46,12 +70,13 @@ const CategoryForm = () => {
                   accept="image/*"
                   id="fileInput"
                   style={{ display: "none" }}
+                  onChange={handleImageChange}
                 />
                 <label htmlFor="fileInput" className="relative">
                   <span className="w-24 h-24 cursor-pointer flex items-center justify-center p-3 border rounded-md border-gray-400">
                     <AddPhotoAlternate className="text-gray-700" />
                   </span>
-                  {false && (
+                  {uploadImage && (
                     <div className="absolute left-0 right-0 top-0 bottom-0 w-24 h-24 flex justify-center items-center">
                       <CircularProgress />
                     </div>

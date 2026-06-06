@@ -25,14 +25,14 @@ const ReviewCard = ({ item }) => {
                 className="text-white"
                 sx={{ width: 56, height: 56, bgcolor: "#9155FD" }}
               >
-                {item.user.username.charAt(0)}
+                {item.user?.username.charAt(0)}
               </Avatar>
             </Box>
           </Grid>
 
           <Grid item size={9}>
             <div className="space-y-2">
-              <p className="font-semibold text-lg">{item.user.username}</p>
+              <p className="font-semibold text-lg">{item.user?.username}</p>
               <p className="opacity-70">
                 {new Date(item.createdAt).toLocaleDateString("vi-VN")}
               </p>
