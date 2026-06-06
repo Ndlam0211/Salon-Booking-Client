@@ -79,6 +79,7 @@ export const fetchNotificationsBySalon = ({ salonId, jwt }) => async (dispatch) 
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("fetch notifications by salon: ", response.data)
 
     dispatch({
       type: FETCH_NOTIFICATIONS_BY_SALON_SUCCESS,
