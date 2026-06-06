@@ -5,20 +5,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchSalonBookings } from "../../Redux/Booking/action";
 
 export default function TransactionTable() {
+  const { booking, salon } = useSelector((store) => store);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (salon.salon) {
+      dispatch(fetchSalonBookings(localStorage.getItem("jwt")));
+    }
+  }, [salon.salon]);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -31,17 +30,27 @@ export default function TransactionTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {booking.bookings.map((item) => (
             <TableRow
-              key={row.name}
+              key={item.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {(() => {
+                  const date = new Date(item.startTime);
+                  const day = String(date.getDate()).padStart(2, "0");
+                  const month = String(date.getMonth() + 1).padStart(2, "0");
+                  const year = date.getFullYear();
+                  const hours = date.getHours();
+                  const minutes = String(date.getMinutes()).padStart(2, "0");
+                  const ampm = hours >= 12 ? "PM" : "AM";
+                  const formattedHour = String(hours % 12 || 12).padStart(2, "0");
+                  return `${day}/${month}/${year} ${formattedHour}:${minutes} ${ampm}`;
+                })()}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{item.customer.email}</TableCell>
+              <TableCell align="right">{item.id}</TableCell>
+              <TableCell align="right">{item.totalPrice}</TableCell>
             </TableRow>
           ))}
         </TableBody>
