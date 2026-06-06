@@ -35,6 +35,8 @@ export const createService =
         },
       );
 
+      console.log("create service response: ", data)
+
       dispatch({
         type: CREATE_SERVICE_SUCCESS,
         payload: data.data,

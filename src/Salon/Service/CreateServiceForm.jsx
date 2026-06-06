@@ -1,30 +1,50 @@
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import React from "react";
+import React, { useState } from "react";
 import { AddPhotoAlternate, Close } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadToCloudinary } from "../../util/uploadToCloudinary";
+import { createService } from "../../Redux/Salon Services/action";
 
 const CreateServiceForm = () => {
+  const dispatch = useDispatch();
+  const [uploadImage, setUploadImage] = useState(false);
+  const {category} = useSelector(store => store)
+
   const formik = useFormik({
     initialValues: {
       name: "",
-      image: "",
       description: "",
       price: "",
       duration: "",
-      category: ""
+      image: "",
+      categoryId: "",
     },
-    onSubmit: () => {
+    onSubmit: (values) => {
       console.log("submit: ", formik.values);
+      dispatch(createService({
+        serviceData: values,
+        jwt: localStorage.getItem("jwt")
+      }))
     },
   });
+
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+
+    setUploadImage(true);
+    const image = await uploadToCloudinary(file);
+    formik.setFieldValue("image", image);
+    setUploadImage(false);
+  };
 
   return (
     <div className="flex justify-center items-center">
@@ -34,11 +54,11 @@ const CreateServiceForm = () => {
       >
         <Grid container spacing={2}>
           <Grid size={{ xs: 12 }} className="w-24 h-24">
-            {false ? (
+            {formik.values.image ? (
               <div className="relative border">
                 <img
                   className="w-24 h-24 object-cover"
-                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2Fsb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
+                  src={formik.values.image}
                   alt="Category"
                 />
                 <IconButton
@@ -57,12 +77,13 @@ const CreateServiceForm = () => {
                   accept="image/*"
                   id="fileInput"
                   style={{ display: "none" }}
+                  onChange={handleImageChange}
                 />
                 <label htmlFor="fileInput" className="relative">
                   <span className="w-24 h-24 cursor-pointer flex items-center justify-center p-3 border rounded-md border-gray-400">
                     <AddPhotoAlternate className="text-gray-700" />
                   </span>
-                  {false && (
+                  {uploadImage && (
                     <div className="absolute left-0 right-0 top-0 bottom-0 w-24 h-24 flex justify-center items-center">
                       <CircularProgress />
                     </div>
@@ -124,14 +145,14 @@ const CreateServiceForm = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                name="category"
+                name="categoryId"
                 label="Category"
-                value={formik.values.category}
+                value={formik.values.categoryId}
                 onChange={formik.handleChange}
               >
-                {[1,1,1,1].map((item, index) => (
-                  <MenuItem value={"haircut"+index} key={index}>
-                    Haircut
+                {category.categories.map((item, index) => (
+                  <MenuItem value={item.id} key={index}>
+                    {item.name}
                   </MenuItem>
                 ))}
               </Select>
