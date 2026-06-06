@@ -1,27 +1,29 @@
 import React, { useState } from "react";
 import CategoryCard from "./CategoryCard";
 import ServiceCard from "./ServiceCard";
-import { Button, Divider, Modal } from "@mui/material";
+import { Button, CircularProgress, Divider, Modal } from "@mui/material";
 import { RemoveShoppingCart, ShoppingCart } from "@mui/icons-material";
 import SelectedServiceList from "./SelectedServiceList";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchServicesBySalon } from "../../../Redux/Salon Services/action";
 import { createBooking } from "../../../Redux/Booking/action";
-import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers"
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const SalonServiceDetails = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
   const [bookingData, setBookingData] = useState({
     services: [],
     time: null,
   });
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { category, service } = useSelector((store) => store);
+  const navigate = useNavigate();
+  const { category, service, auth } = useSelector((store) => store);
+  const [isBooking, setIsBooking] = useState(false);
 
   const handleCategoryClick = (category) => () => {
     setSelectedCategory(category);
@@ -41,22 +43,34 @@ const SalonServiceDetails = () => {
     }));
   };
 
-  const handleModalClose = () => {setOpen(false)};
-  const handleModalOpen = () => {setOpen(true)};
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+  const handleModalOpen = () => {
+    setOpen(true);
+  };
 
-  const handleBooking =() => {
-    const serviceIds = bookingData.services.map((service) => service.id)
+  const handleBooking = async () => {
+    if(!auth.user) {
+      navigate(`/login?redirect=/salon/${id}`)
+      return
+    }
+    const serviceIds = bookingData.services.map((service) => service.id);
 
-    dispatch(createBooking({
-      jwt: localStorage.getItem("jwt"),
-      salonId: id,
-      bookingData: {
-        serviceIds: serviceIds,
-        startTime: bookingData.time
-      }
-    }))
-  }
-  
+    setIsBooking(true)
+    await dispatch(
+      createBooking({
+        jwt: localStorage.getItem("jwt"),
+        salonId: id,
+        bookingData: {
+          serviceIds: serviceIds,
+          startTime: bookingData.time,
+        },
+      }),
+    );
+    setIsBooking(false);
+  };
+
   useEffect(() => {
     if (id) {
       dispatch(
@@ -150,7 +164,13 @@ const SalonServiceDetails = () => {
 
             <div className="">
               <Button fullWidth variant="outlined" onClick={handleBooking}>
-                Book
+                {!isBooking ? (
+                  "Book"
+                ) : (
+                  <div className="w-10 h-10">
+                    <CircularProgress />
+                  </div>
+                )}
               </Button>
             </div>
           </div>

@@ -1,12 +1,14 @@
 import { Box, Button, InputLabel, Rating, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createReview } from "../../Redux/Review/action";
 
 const CreateReviewForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const {auth} = useSelector(store => store)
     const { id } = useParams();
     
   const formik = useFormik({
@@ -16,6 +18,12 @@ const CreateReviewForm = () => {
     },
     onSubmit: (values) => {
       console.log("Submitting create review: ", values);
+
+      if (!auth.user) {
+        navigate(`/login?redirect=/salon/${id}`);
+        return;
+      }
+
       dispatch(
         createReview({
           salonId: id,

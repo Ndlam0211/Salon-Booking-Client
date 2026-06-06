@@ -3,11 +3,13 @@ import { Container, TextField, Typography, Button } from '@mui/material';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { login } from '../Redux/Auth/action';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -16,10 +18,12 @@ const LoginForm = () => {
         onSubmit: (values) => {
             console.log("Login form submitted with values:", values);
             // Dispatch login action here
+            const redirect = searchParams.get("redirect")
             dispatch(login({
-                data: values,
-                navigate
-            }));
+                loginData: values,
+                navigate,
+                redirect
+            }, ));
         },
     });
 

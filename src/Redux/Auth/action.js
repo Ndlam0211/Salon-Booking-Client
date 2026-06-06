@@ -15,25 +15,29 @@ import {
 
 const API_BASE_URL = "/api/v1/auth";
 
-export const login = (loginData) => async (dispatch) => {
+export const login = ({loginData,navigate, redirect}) => async (dispatch) => {
   dispatch({
     type: LOGIN_REQUEST,
   });
 
   try {
-    const response = await api.post(`${API_BASE_URL}/login`, loginData.data);
+    const response = await api.post(`${API_BASE_URL}/login`, loginData);
 
-    console.log("Login response:", response);
-     const user = response.data.data;
+    const user = response.data.data;
+    console.log("Login response:", user);
 
      if (user?.accessToken) {
        localStorage.setItem("jwt", user.accessToken);
        if (user?.role === "ADMIN") {
-         loginData.navigate("/admin");
+         navigate("/admin");
        } else if (user?.role === "SALON_OWNER") {
-         loginData.navigate("/salon-dashboard");
+         navigate("/salon-dashboard");
        } else {
-         loginData.navigate("/");
+         if(redirect !== null) {
+            navigate(redirect)
+         }else {
+           navigate("/");
+          }
        }
      }
 

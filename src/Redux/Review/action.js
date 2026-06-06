@@ -23,11 +23,7 @@ export const fetchReviews = ({ salonId, jwt }) => async (dispatch) => {
   });
 
   try {
-    const response = await api.get(`${API_BASE_URL}/salon/${salonId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const response = await api.get(`${API_BASE_URL}/salon/${salonId}`);
     console.log("Fetched Reviews:", response.data);
 
     dispatch({

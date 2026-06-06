@@ -50,7 +50,7 @@ const ReviewCard = ({ item }) => {
           </Grid>
         </Grid>
       </div>
-        {auth.user && auth.user?.id === item.user.id && (
+        {auth.user && auth.user?.id === item.user?.id && (
           <IconButton onClick={handleDelete}>
             <Delete sx={{ color: red[700] }} />
           </IconButton>

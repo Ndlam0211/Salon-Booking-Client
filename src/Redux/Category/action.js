@@ -76,11 +76,7 @@ export const getCategoryById = (categoryId) => async (dispatch) => {
   });
 
   try {
-    const response = await api.get(`${API_BASE_URL}/${categoryId}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    });
+    const response = await api.get(`${API_BASE_URL}/${categoryId}`);
 
     dispatch({
       type: GET_CATEGORY_BY_ID_SUCCESS,
@@ -100,11 +96,7 @@ export const getCategoriesBySalon = ({jwt, salonId}) => async (dispatch) => {
   });
 
   try {
-    const response = await api.get(`${API_BASE_URL}/salon/${salonId}`, {
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
+    const response = await api.get(`${API_BASE_URL}/salon/${salonId}`);
     console.log("Fetched categories by salon:", response.data);
 
     dispatch({

@@ -88,9 +88,6 @@ export const fetchServicesBySalon =
 
     try {
       const { data } = await api.get(`${API_BASE_URL}/salon/${salonId}`, {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
         params: { categoryId },
       });
       console.log("Fetched services:", data);

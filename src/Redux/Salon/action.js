@@ -82,11 +82,7 @@ export const fetchSalons = () => async (dispatch) => {
   });
 
   try {
-    const response = await api.get(API_BASE_URL, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    });
+    const response = await api.get(API_BASE_URL);
 
     console.log("Fetched salons:", response); // Debugging log
 
@@ -108,11 +104,7 @@ export const fetchSalonById = (salonId) => async (dispatch) => {
   });
 
   try {
-    const response = await api.get(`${API_BASE_URL}/${salonId}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    });
+    const response = await api.get(`${API_BASE_URL}/${salonId}`);
 
     console.log("Fetched salon by ID:", response.data.data); // Debugging log
 
