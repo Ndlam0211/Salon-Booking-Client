@@ -31,6 +31,7 @@ export const createCategory = ({categoryData, jwt}) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("create category response: ", response);
 
     dispatch({
       type: CREATE_CATEGORY_SUCCESS,
