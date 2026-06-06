@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AddPhotoAlternate, Close } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
@@ -13,11 +13,12 @@ import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadToCloudinary } from "../../util/uploadToCloudinary";
 import { createService } from "../../Redux/Salon Services/action";
+import { getCategoriesBySalon } from "../../Redux/Category/action";
 
 const CreateServiceForm = () => {
   const dispatch = useDispatch();
   const [uploadImage, setUploadImage] = useState(false);
-  const {category} = useSelector(store => store)
+  const { category, salon } = useSelector((store) => store);
 
   const formik = useFormik({
     initialValues: {
@@ -30,13 +31,25 @@ const CreateServiceForm = () => {
     },
     onSubmit: (values) => {
       console.log("submit: ", formik.values);
-      dispatch(createService({
-        serviceData: values,
-        jwt: localStorage.getItem("jwt")
-      }))
+      dispatch(
+        createService({
+          serviceData: values,
+          jwt: localStorage.getItem("jwt"),
+        }),
+      );
     },
   });
 
+  useEffect(() => {
+    if (salon.salon) {
+      dispatch(
+        getCategoriesBySalon({
+          jwt: localStorage.getItem("jwt"),
+          salonId: salon.salon?.id,
+        }),
+      );
+    }
+  }, []);
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
 

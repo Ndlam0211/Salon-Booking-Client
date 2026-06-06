@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import SalonDrawerList from "./components/SalonDrawerList";
 import Navbar from "../Admin Salon/Navbar";
 import SalonRoutes from "../Routes/SalonRoutes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSalonByOwner } from "../Redux/Salon/action";
 import { fetchUser } from "../Redux/Auth/action";
 
@@ -11,7 +11,9 @@ const SalonDashBoard = () => {
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
+
     dispatch(fetchSalonByOwner(jwt));
+
     dispatch(fetchUser(jwt));
   }, []);
   return (
