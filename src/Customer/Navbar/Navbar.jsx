@@ -52,7 +52,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-3 md:gap-6">
-        <Button variant="outlined">Become Partner</Button>
+        <Button onClick={() => navigate("/become-partner")} variant="outlined">Become Partner</Button>
 
         <IconButton onClick={() => navigate("/notifications")}>
           <Badge badgeContent={notification.unreadCount}>
