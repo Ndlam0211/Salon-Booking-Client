@@ -70,7 +70,7 @@ export const fetchCustomerBookings = (jwt) => async (dispatch) => {
       },
     });
 
-    console.log("fetch bookings: ", data)
+    console.log("fetch bookings by customer: ", data)
 
     dispatch({
       type: FETCH_CUSTOMER_BOOKINGS_SUCCESS,
@@ -95,6 +95,8 @@ export const fetchSalonBookings = (jwt) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
+
+    console.log("fetch booking by salon: ", data)
 
     dispatch({
       type: FETCH_SALON_BOOKINGS_SUCCESS,
