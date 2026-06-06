@@ -1,9 +1,19 @@
-import React from 'react'
-import SalonDrawerList from './components/SalonDrawerList'
-import Navbar from '../Admin Salon/Navbar'
-import SalonRoutes from '../Routes/SalonRoutes'
+import React, { useEffect } from "react";
+import SalonDrawerList from "./components/SalonDrawerList";
+import Navbar from "../Admin Salon/Navbar";
+import SalonRoutes from "../Routes/SalonRoutes";
+import { useDispatch } from "react-redux";
+import { fetchSalonByOwner } from "../Redux/Salon/action";
+import { fetchUser } from "../Redux/Auth/action";
 
 const SalonDashBoard = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    dispatch(fetchSalonByOwner(jwt));
+    dispatch(fetchUser(jwt));
+  }, []);
   return (
     <div className="min-h-screen">
       <Navbar DrawerList={SalonDrawerList} />
@@ -12,11 +22,11 @@ const SalonDashBoard = () => {
           <SalonDrawerList />
         </div>
         <div className="p-10 w-full lg:w-[80%] overflow-y-auto">
-         <SalonRoutes/>
+          <SalonRoutes />
         </div>
       </section>
     </div>
   );
-}
+};
 
-export default SalonDashBoard
+export default SalonDashBoard;

@@ -139,6 +139,7 @@ export const fetchSalonByOwner = (jwt) => async (dispatch) => {
         Authorization: `Bearer ${jwt}`,
       },
     });
+    console.log("fetch salon by owner: ", response)
 
     dispatch({
       type: FETCH_SALON_BY_OWNER_SUCCESS,
