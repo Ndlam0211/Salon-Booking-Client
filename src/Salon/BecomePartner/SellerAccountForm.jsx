@@ -5,6 +5,7 @@ import Stepper from "@mui/material/Stepper";
 import React, { useState } from "react";
 import OwnerDetailsForm from "./OwnerDetailsForm";
 import { useFormik } from "formik";
+import SalonDetailsForm from "./SalonDetailsForm";
 
 const steps = ["Owner Details", "Salon Details", "Salon Address"];
 const SellerAccountForm = () => {
@@ -16,12 +17,28 @@ const SellerAccountForm = () => {
 
   const formik = useFormik({
     initialValues: {
-
+      email: "",
+      username: "",
+      password: "",
+      salonAddress: {
+        phoneNumber: "",
+        pincode: "",
+        address: "",
+        city: "",
+        state: "",
+        email: ""
+      },
+      salonDetails: {
+        name:"",
+        openTime: "",
+        closeTime: "",
+        images: []
+      }
     },
     onSubmit: (values) => {
-        console.log("submit: ", values)
-    }
-  })
+      console.log("submit: ", values);
+    },
+  });
 
   return (
     <div>
@@ -33,7 +50,15 @@ const SellerAccountForm = () => {
         ))}
       </Stepper>
       <div className="mt-20 space-y-10">
-        <div className="">{activeStep===0 ? <OwnerDetailsForm formik={formik}/> : "Salon form"}</div>
+        <div className="">
+          {activeStep === 0 ? (
+            <OwnerDetailsForm formik={formik} />
+          ) : activeStep === 1 ? (
+            <SalonDetailsForm formik={formik} />
+          ) : (
+            "create"
+          )}
+        </div>
         <div className="flex items-center justify-between ">
           <Button
             disabled={activeStep < 1}
