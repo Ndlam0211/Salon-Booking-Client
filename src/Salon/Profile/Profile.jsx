@@ -8,7 +8,7 @@ const Profile = () => {
   return (
     <div className="lg:px-20 lg:bottom-20 space-y-20">
       <div className="w-full lg:w-[70%]">
-        {/* <h1 className="text-5xl font-bold pb-5">Pablo Salon</h1> */}
+        <h1 className="text-5xl font-bold pb-5">{salon.salon?.name}</h1>
         <section className="grid grid-cols-2 gap-3">
           <div className="col-span-2">
             <img
