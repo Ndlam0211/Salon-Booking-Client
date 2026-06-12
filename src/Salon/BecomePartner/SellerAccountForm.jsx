@@ -7,6 +7,9 @@ import OwnerDetailsForm from "./OwnerDetailsForm";
 import { useFormik } from "formik";
 import SalonDetailsForm from "./SalonDetailsForm";
 import SalonAddressForm from "./SalonAddressForm";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createSalon } from "../../Redux/Salon/action";
 
 const getLocalTime = (time) => {
   let hour = time?.$H;
@@ -20,6 +23,8 @@ const getLocalTime = (time) => {
 const steps = ["Owner Details", "Salon Details", "Salon Address"];
 
 const SellerAccountForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
 
   const handleActiveStep = (value) => () => {
@@ -33,22 +38,21 @@ const SellerAccountForm = () => {
       password: "",
       salonAddress: {
         phoneNumber: "",
-        pincode: "",
         address: "",
         city: "",
         email: "",
       },
       salonDetails: {
         name: "",
-        openTime: "",
-        closeTime: "",
+        openingTime: "",
+        closingTime: "",
         images: [],
       },
     },
     onSubmit: (values) => {
       console.log("submit: ", values);
-      const openTime = getLocalTime(values.salonDetails.openTime)
-      const closeTime = getLocalTime(values.salonDetails.closeTime);
+      const openTime = getLocalTime(values.salonDetails.openingTime);
+      const closeTime = getLocalTime(values.salonDetails.closingTime);
 
       const ownerDetails = {
         username: values.username,
@@ -63,6 +67,8 @@ const SellerAccountForm = () => {
         closeTime,
         ...values.salonAddress
       }
+
+      dispatch(createSalon({salonDetails, ownerDetails, navigate}))
     },
   });
 

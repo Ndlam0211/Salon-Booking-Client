@@ -29,13 +29,19 @@ export const createSalon = (reqData) => async (dispatch) => {
   });
 
   try {
-    const jwt = "";
+    const userResponse = await api.post("api/v1/auth/signup", reqData.ownerDetails)
+   
+    const jwt = userResponse.data.data.accessToken;
+    
+    localStorage.setItem("jwt", userResponse.data.data.accessToken);
 
     const response = await api.post(API_BASE_URL, reqData.salonDetails, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
     });
+
+    console.log("create salon response: ", response.data)
 
     reqData.navigate("/salon-dashboard");
     dispatch({

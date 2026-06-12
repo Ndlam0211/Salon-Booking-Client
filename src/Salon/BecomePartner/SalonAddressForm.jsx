@@ -47,7 +47,7 @@ const SalonAddressForm = ({formik}) => {
               />
             </Grid>
 
-            <Grid size={{ xs: 12, sm: 6 }}>
+            <Grid size={{ xs: 12}}>
               <TextField
                 fullWidth
                 id="mobile"
@@ -58,7 +58,7 @@ const SalonAddressForm = ({formik}) => {
                 required
               />
             </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
+            {/* <Grid size={{ xs: 12, sm: 6 }}>
               <TextField
                 fullWidth
                 id="pincode"
@@ -68,7 +68,7 @@ const SalonAddressForm = ({formik}) => {
                 onChange={formik.handleChange}
                 required
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </form>
       </div>

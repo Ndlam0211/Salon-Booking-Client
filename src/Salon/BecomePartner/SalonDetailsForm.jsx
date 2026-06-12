@@ -99,7 +99,7 @@ const SalonDetailsForm = ({ formik }) => {
               label="Select Open Time"
               onChange={(value) => {
                 if (value) {
-                  formik.setFieldValue("salonDetails.openTime", value);
+                  formik.setFieldValue("salonDetails.openingTime", value);
                 }
               }}
             />
@@ -112,7 +112,7 @@ const SalonDetailsForm = ({ formik }) => {
               label="Select Close Time"
               onChange={(value) => {
                 if (value) {
-                  formik.setFieldValue("salonDetails.closeTime", value);
+                  formik.setFieldValue("salonDetails.closingTime", value);
                 }
               }}
             />
