@@ -6,8 +6,19 @@ import React, { useState } from "react";
 import OwnerDetailsForm from "./OwnerDetailsForm";
 import { useFormik } from "formik";
 import SalonDetailsForm from "./SalonDetailsForm";
+import SalonAddressForm from "./SalonAddressForm";
+
+const getLocalTime = (time) => {
+  let hour = time?.$H;
+  let minute = time?.$m;
+  let second = time?.$s;
+
+  const localTime = `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:${String(second).padStart(2, "0")}`;
+  return localTime;
+};
 
 const steps = ["Owner Details", "Salon Details", "Salon Address"];
+
 const SellerAccountForm = () => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -25,18 +36,33 @@ const SellerAccountForm = () => {
         pincode: "",
         address: "",
         city: "",
-        state: "",
-        email: ""
+        email: "",
       },
       salonDetails: {
-        name:"",
+        name: "",
         openTime: "",
         closeTime: "",
-        images: []
-      }
+        images: [],
+      },
     },
     onSubmit: (values) => {
       console.log("submit: ", values);
+      const openTime = getLocalTime(values.salonDetails.openTime)
+      const closeTime = getLocalTime(values.salonDetails.closeTime);
+
+      const ownerDetails = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        role: "SALON_OWNER",
+      };
+
+      const salonDetails = {
+        ...values.salonDetails,
+        openTime,
+        closeTime,
+        ...values.salonAddress
+      }
     },
   });
 
@@ -56,7 +82,7 @@ const SellerAccountForm = () => {
           ) : activeStep === 1 ? (
             <SalonDetailsForm formik={formik} />
           ) : (
-            "create"
+            <SalonAddressForm formik={formik} />
           )}
         </div>
         <div className="flex items-center justify-between ">
@@ -67,7 +93,12 @@ const SellerAccountForm = () => {
           >
             Back
           </Button>
-          <Button onClick={handleActiveStep(1)} variant="contained">
+          <Button
+            onClick={
+              activeStep === 2 ? formik.handleSubmit : handleActiveStep(1)
+            }
+            variant="contained"
+          >
             {activeStep === 2 ? "Create Account" : "Continue"}
           </Button>
         </div>

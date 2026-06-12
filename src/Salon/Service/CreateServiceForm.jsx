@@ -49,7 +49,8 @@ const CreateServiceForm = () => {
         }),
       );
     }
-  }, []);
+  }, [salon.salon]);
+
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
 
