@@ -51,8 +51,8 @@ const SellerAccountForm = () => {
     },
     onSubmit: (values) => {
       console.log("submit: ", values);
-      const openTime = getLocalTime(values.salonDetails.openingTime);
-      const closeTime = getLocalTime(values.salonDetails.closingTime);
+      const openingTime = getLocalTime(values.salonDetails.openingTime);
+      const closingTime = getLocalTime(values.salonDetails.closingTime);
 
       const ownerDetails = {
         username: values.username,
@@ -63,10 +63,10 @@ const SellerAccountForm = () => {
 
       const salonDetails = {
         ...values.salonDetails,
-        openTime,
-        closeTime,
-        ...values.salonAddress
-      }
+        openingTime,
+        closingTime,
+        ...values.salonAddress,
+      };
 
       dispatch(createSalon({salonDetails, ownerDetails, navigate}))
     },
