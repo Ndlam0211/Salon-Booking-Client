@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   CartesianGrid,
   Legend,
@@ -9,6 +10,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { fetchBookings } from "../../../Redux/Chart/action";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const data = [
   {
@@ -55,7 +59,30 @@ const data = [
   },
 ];
 
+const bookings = [
+  {"2-12-2026":499}
+]
+
+const chartData = [
+  {
+    daily:"2-12-2026",
+    revenue: 499
+  }
+]
+
 const BookingChart = () => {
+    const dispatch = useDispatch();
+    const { chart } = useSelector((store) => store);
+
+    useEffect(() => {
+      dispatch(fetchBookings(localStorage.getItem("jwt")));
+    }, []);
+
+    if (!chart.bookings.loading) {
+      <Backdrop open={true}>
+        <CircularProgress color="inherit" />
+      </Backdrop>;
+    }
   return (
     <div className="h-[40vh] w-full">
       <LineChart
@@ -67,7 +94,7 @@ const BookingChart = () => {
           aspectRatio: 1.618,
         }}
         responsive
-        data={data}
+        data={chart.bookings.data}
         margin={{
           top: 5,
           right: 0,
@@ -75,7 +102,7 @@ const BookingChart = () => {
           bottom: 5,
         }}
       >
-        <XAxis dataKey="name" stroke="var(--color-text-3)" />
+        <XAxis dataKey="count" stroke="var(--color-text-3)" />
         <YAxis width="auto" stroke="var(--color-text-3)" />
         <Tooltip
           cursor={{
@@ -88,7 +115,7 @@ const BookingChart = () => {
         />
         <Line
           type="monotone"
-          dataKey="pv"
+          dataKey="count"
           stroke="#8884d8"
           dot={{
             fill: "var(--color-surface-base)",

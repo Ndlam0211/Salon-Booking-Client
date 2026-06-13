@@ -4,7 +4,7 @@ import {
   CREATE_BOOKING_REQUEST,
   CREATE_BOOKING_SUCCESS,
   CREATE_BOOKING_FAILURE,
-  FETCH_CUSSOMER_BOOKINGS_REQUEST,
+  FETCH_CUSTOMER_BOOKINGS_REQUEST,
   FETCH_CUSTOMER_BOOKINGS_SUCCESS,
   FETCH_CUSTOMER_BOOKINGS_FAILURE,
   FETCH_SALON_BOOKINGS_REQUEST,
@@ -60,7 +60,7 @@ export const createBooking = ({jwt, salonId, bookingData}) => async (dispatch) =
 
 export const fetchCustomerBookings = (jwt) => async (dispatch) => {
   dispatch({
-    type: FETCH_CUSSOMER_BOOKINGS_REQUEST,
+    type: FETCH_CUSTOMER_BOOKINGS_REQUEST,
   });
 
   try {
