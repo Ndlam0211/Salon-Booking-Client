@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSalonByOwner } from "../Redux/Salon/action";
 import { fetchUser } from "../Redux/Auth/action";
 import { fetchNotificationsBySalon } from "../Redux/Notifications/action";
+import useNotificationWebsocket from "../util/useNotificationWebsocket";
 
 const SalonDashBoard = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,8 @@ const SalonDashBoard = () => {
       }),
     );
   }, [salon.salon]);
+
+  useNotificationWebsocket(salon.salon?.id, "salon")
   return (
     <div className="min-h-screen">
       <Navbar DrawerList={SalonDrawerList} />

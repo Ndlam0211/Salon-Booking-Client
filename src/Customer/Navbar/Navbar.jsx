@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, logout } from "../../Redux/Auth/action";
 import { useEffect } from "react";
+import useNotificationWebsocket from "../../util/useNotificationWebsocket";
 
 const Navbar = () => {
   const [anchorEl, setAnchoEl] = useState(null);
@@ -28,15 +29,16 @@ const Navbar = () => {
     setAnchoEl(null);
   };
 
+  useEffect(() => {
+    dispatch(fetchUser(localStorage.getItem("jwt")));
+  }, [auth?.jwt]);
+
   const handleLogout = () => {
     dispatch(logout());
     handleClose();
   };
 
-  useEffect(() => {
-    dispatch(fetchUser(localStorage.getItem("jwt")));
-  }, [auth?.jwt]);
-
+  useNotificationWebsocket(auth.user?.id, "user")
   return (
     <div className="z-50 px-6 flex items-center justify-between py-2">
       <div className="flex items-center gap-10">
