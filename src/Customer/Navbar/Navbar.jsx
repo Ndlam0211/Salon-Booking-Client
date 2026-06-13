@@ -38,7 +38,8 @@ const Navbar = () => {
     handleClose();
   };
 
-  useNotificationWebsocket(auth.user?.id, "user")
+  useNotificationWebsocket({id: auth.user?.id, type: "user"});
+
   return (
     <div className="z-50 px-6 flex items-center justify-between py-2">
       <div className="flex items-center gap-10">
@@ -54,13 +55,22 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-3 md:gap-6">
-        {!auth.user && <Button onClick={() => navigate("/become-partner")} variant="outlined">Become Partner</Button>}
+        {!auth.user && (
+          <Button
+            onClick={() => navigate("/become-partner")}
+            variant="outlined"
+          >
+            Become Partner
+          </Button>
+        )}
 
-        <IconButton onClick={() => navigate("/notifications")}>
-          <Badge badgeContent={notification.unreadCount}>
-            <NotificationsActive color="primary" />
-          </Badge>
-        </IconButton>
+        {auth.user && (
+          <IconButton onClick={() => navigate("/notifications")}>
+            <Badge badgeContent={notification.unreadCount}>
+              <NotificationsActive color="primary" />
+            </Badge>
+          </IconButton>
+        )}
 
         {auth.user?.id ? (
           <div className="flex gap-1 items-center">
@@ -93,10 +103,16 @@ const Navbar = () => {
               >
                 My Bookings
               </MenuItem>
-              {auth.user?.role === "SALON_OWNER" && <MenuItem onClick={() => {
-                navigate("/salon-dashboard")
-                handleClose()
-              }}>Dashboard</MenuItem>}
+              {auth.user?.role === "SALON_OWNER" && (
+                <MenuItem
+                  onClick={() => {
+                    navigate("/salon-dashboard");
+                    handleClose();
+                  }}
+                >
+                  Dashboard
+                </MenuItem>
+              )}
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>

@@ -28,7 +28,7 @@ const SalonDashBoard = () => {
     );
   }, [salon.salon]);
 
-  useNotificationWebsocket(salon.salon?.id, "salon")
+  useNotificationWebsocket({ id: salon.salon?.id, type: "salon" });
   return (
     <div className="min-h-screen">
       <Navbar DrawerList={SalonDrawerList} />
