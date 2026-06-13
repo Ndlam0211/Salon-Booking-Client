@@ -60,17 +60,19 @@ const data = [
 ];
 
 const EarningChart = () => {
-  const dispatch = useDispatch()
-  const {chart} = useSelector(store => store)
+  const dispatch = useDispatch();
+  const { chart } = useSelector((store) => store);
 
   useEffect(() => {
-    dispatch(fetchEarnings(localStorage.getItem("jwt")))
-  }, [])
+    dispatch(fetchEarnings(localStorage.getItem("jwt")));
+  }, []);
 
-  if(!chart.earnings.loading) {
-    <Backdrop open={true}>
-      <CircularProgress color="inherit"/>
-    </Backdrop>
+  if (chart.earnings.loading) {
+    return (
+      <Backdrop open={true}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
   }
   return (
     <div className="h-[40vh] w-full">
@@ -83,7 +85,7 @@ const EarningChart = () => {
           aspectRatio: 1.618,
         }}
         responsive
-        data={chart.earnings.data}
+        data={chart.earnings.data || []}
         margin={{
           top: 5,
           right: 0,

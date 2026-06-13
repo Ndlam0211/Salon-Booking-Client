@@ -59,30 +59,30 @@ const data = [
   },
 ];
 
-const bookings = [
-  {"2-12-2026":499}
-]
+const bookings = [{ "2-12-2026": 499 }];
 
 const chartData = [
   {
-    daily:"2-12-2026",
-    revenue: 499
-  }
-]
+    daily: "2-12-2026",
+    revenue: 499,
+  },
+];
 
 const BookingChart = () => {
-    const dispatch = useDispatch();
-    const { chart } = useSelector((store) => store);
+  const dispatch = useDispatch();
+  const { chart } = useSelector((store) => store);
 
-    useEffect(() => {
-      dispatch(fetchBookings(localStorage.getItem("jwt")));
-    }, []);
+  useEffect(() => {
+    dispatch(fetchBookings(localStorage.getItem("jwt")));
+  }, []);
 
-    if (!chart.bookings.loading) {
+  if (chart.bookings.loading) {
+    return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />
-      </Backdrop>;
-    }
+      </Backdrop>
+    );
+  }
   return (
     <div className="h-[40vh] w-full">
       <LineChart
@@ -94,7 +94,7 @@ const BookingChart = () => {
           aspectRatio: 1.618,
         }}
         responsive
-        data={chart.bookings.data}
+        data={chart.bookings.data || []}
         margin={{
           top: 5,
           right: 0,
